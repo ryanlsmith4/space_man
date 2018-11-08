@@ -1,6 +1,5 @@
 import random
 
-
 letters_guessed = []
 correct_guesses = []
 my_list = []
@@ -28,8 +27,7 @@ def gen_secret_word(list):
     return secret_word
 # END gen_secret_word
 
-#assign secret_word using gen_secret_word()
-secret_word = gen_secret_word(dictionary_list())
+
 
 
 def guess_letter():
@@ -72,24 +70,31 @@ def print_game():
     Function that draws the game board the length of the secret_word
     '''
     load_word = "Secret Word: "
-    for i in secret_word:
-        my_list.append(i)
-        low_dash.append("_")
-        load_word = load_word + "_ "
+    for i in low_dash:
+        load_word = load_word + i + " "
     print(load_word)
 #END print_game()
 
 
-#TODO: make replace_dash replace the dash in the secret_word place holder
-#and return the correct guess in correct spot
+
 def replace_dash(guess, secret_word):
+    '''Function that replaces the dashes with the corresponding
+        letters'''
     secret_word = list(secret_word)
-    for guess in secret_word:
-        if guess == secret_word[guess]:
-            secret_word.remove(secret_word[guess])
-            secret_word.insert(secret_word[guess], guess)
-            return secret_word
-#END TODO
+    for i in range(len(secret_word)) :
+        if guess == secret_word[i]:
+            low_dash[i] = guess
+
+#END replace_dash
+
+def gen_dash_word() :
+    '''
+    Function that turns secret_word into dashes
+    '''
+    for i in secret_word:
+        low_dash.append("_")
+
+    # print(low_dash)
 
 # Game loop (Work in progress)
 def play_space():
@@ -105,7 +110,13 @@ def play_space():
             print("You WIN")
             return
         print(turns)
+#END play space
+
+#assign secret_word using gen_secret_word()
+secret_word = gen_secret_word(dictionary_list())
+gen_dash_word()
+# print(secret_word)
 
 play_space()
-# print(secret_word)
-# print_game()
+
+#shout out to Alex Bogert for unblocking me on this project
